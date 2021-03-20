@@ -7,7 +7,7 @@ import AboutMePage from './aboutMe';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <AboutMePage />      
+      <AboutMePage />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
