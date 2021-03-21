@@ -1,9 +1,10 @@
 {
   "name": "react-flask-atsi-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "engines": {
-    "node": "10.15"
+    "node": "10.15",
+    "yarn": "1.5.1"
   },
   "dependencies": {
     "@martin_hotell/rex-tils": "^2.1.1",
