@@ -1,48 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import TopNavigation from './components/top-nav';
-import styled from 'styled-components';
-import formatDate from 'date-fns/format';
-
-
-const dateFormat = 'MMMM dd, yyyy';
-
-
-const S = {
-  PageLayout: styled.div`
-    max-width: 1200px;
-    min-height: calc(100vh - 3.5rem);
-    margin: 0 auto;
-    /* color: white; */
-    background-color: white;
-  `,
-  Main: styled.div`
-    width: 100%;
-  `,
-};
+import React from 'react';
+import Layout from './components/page-layout';
+import { routes } from './constants/routes';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import SaunasPage from './pages/sauna';
+import TripsPage from './pages/trips';
+import AboutPage from './pages/about';
+import HomePage from './pages/home';
 
 function AboutMePage() {
-  const [currentTime, setCurrentTime] = useState('');
-
-  useEffect(() => {
-    fetch('/time')
-      .then((res) => res.json())
-        .then((data) => {
-
-        setCurrentTime(data.time);
-      });
-  }, []);
-    
-    
-
   return (
-    <>
-      <TopNavigation />
-      <S.Main>
-        <S.PageLayout>
-          <p>The current time is {currentTime}.</p>
-        </S.PageLayout>
-      </S.Main>
-    </>
+    <Layout>
+      <BrowserRouter>
+        <Switch>
+          <Route path={routes.home} exact component={HomePage} />
+          <Route path={routes.sauna} exact component={SaunasPage} />
+          <Route path={routes.trips} exact component={TripsPage} />
+          <Route path={routes.about} exact component={AboutPage} />
+        </Switch>
+      </BrowserRouter>
+    </Layout>
   );
 }
 

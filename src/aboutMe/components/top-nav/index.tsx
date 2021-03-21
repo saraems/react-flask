@@ -1,5 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { routes } from '../../constants/routes';
 
 const S = {
   NavigationLayout: styled.div`
@@ -20,7 +21,7 @@ const S = {
     justify-content: space-between;
     height: 3.5rem;
   `,
-  Logo: styled.h1`
+  Logo: styled.a`
     margin: 0;
     color: white;
   `,
@@ -77,24 +78,38 @@ const S = {
       text-decoration: underline;
     }
   `,
+  Time: styled.span`
+    margin-left: 0.5rem;
+    font-weight: normal;
+  `,
 };
 
 const SubPages = [
   {
     name: 'Zainteresowania',
-    href: '/zainteresowania',
+    href: routes.interests,
+    subMenu: [
+      { name: 'Podroze', href: routes.trips },
+      { name: 'Sauny', href: routes.sauna },
+    ],
   },
   {
     name: 'O mnie',
-    href: '/omnie',
-    subMenu: [
-      { name: 'Podróze', href: '/podroze' },
-      { name: 'Sauna', href: '/sauna' },
-    ],
+    href: routes.about,
   },
 ];
 
 const TopNavigation: FC = () => {
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    fetch('/time')
+      .then((res) => res.json())
+      .then((data) => {
+        setCurrentTime(`${data.time.hour}:${data.time.minute}`);
+      });
+  }, []);
+
   const Links = SubPages.map((subPage, index) => {
     const [isOpen, setIsOpen] = useState(false);
     const hasSubMenu = !!subPage.subMenu;
@@ -107,7 +122,15 @@ const TopNavigation: FC = () => {
       ));
     return (
       <S.SubPage key={index}>
-        <S.SubPageLink  href={hasSubMenu ? null : subPage.href} onClick={() => hasSubMenu && setIsOpen(!isOpen)}>{subPage.name}</S.SubPageLink>
+        <S.SubPageLink
+          href={hasSubMenu ? null : subPage.href}
+          role={hasSubMenu ? 'menu' : undefined}
+          aria-expanded={(hasSubMenu && isOpen) || undefined}
+          onClick={() => hasSubMenu && setIsOpen(!isOpen)}
+          tabIndex={0}
+        >
+          {subPage.name}
+        </S.SubPageLink>
         {isOpen && hasSubMenu && <S.SubMenu>{subMenu}</S.SubMenu>}
       </S.SubPage>
     );
@@ -117,7 +140,8 @@ const TopNavigation: FC = () => {
     <S.NavigationLayout>
       <S.PageContainer>
         <S.Navigation>
-          <S.Logo> Sara </S.Logo>
+          <S.Logo href="/"> Projekt ASTI</S.Logo>
+          <S.Time> {currentTime} </S.Time>
           <S.SubPages>{Links}</S.SubPages>
         </S.Navigation>
       </S.PageContainer>
