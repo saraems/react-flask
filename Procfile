@@ -1,1 +1,1 @@
-web: flask db upgrade; flask translate compile; gunicorn react-flask-atsi-app:app;
+web: gunicorn react-flask-atsi-app:app;
