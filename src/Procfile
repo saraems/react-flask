@@ -1,1 +1,1 @@
-web: flask db upgrade; flask translate compile; gunicorn react-flask-atsi-app:app
+web: flask db upgrade; flask translate compile; gunicorn react-flask-atsi-app:app; port: process.env.PORT || 5000
