@@ -1,8 +1,5 @@
 def create_app(config_class=Config):
-    # ...
     if not app.debug and not app.testing:
-        # ...
-
         if app.config['LOG_TO_STDOUT']:
             stream_handler = logging.StreamHandler()
             stream_handler.setLevel(logging.INFO)
