@@ -1,3 +1,6 @@
+from flask import Flask
+from api import app
+
 def create_app(config_class=Config):
     # ...
     if not app.debug and not app.testing:
