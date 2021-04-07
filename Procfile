@@ -1,1 +1,1 @@
-web: gunicorn react-flask-atsi-app:app
+web: gunicorn api-rest:app
