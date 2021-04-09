@@ -6,4 +6,4 @@ COPY api-rest api-rest
 COPY build build
 ENV FLASK_APP="api-rest/api.py"
 ENV FLASK_ENV="production"
-CMD ["python3", "-m", "flask", "run"
+CMD ["python3", "-m", "flask", "run"]

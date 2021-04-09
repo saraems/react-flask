@@ -24,4 +24,10 @@ export const S = {
     list-style: none;
     margin-bottom: 1rem;
   `,
+  List: styled.ul`
+    margin: 1rem 0 2rem 2rem;
+  `,
+  Image: styled.img`
+    width: 100%;
+  `
 };
